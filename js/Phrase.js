@@ -25,6 +25,8 @@ class Phrase{
         return this.phrase.match(letter) !== null;
     }
 
+    /* Show the good letters of the sentence */
+
     showMatchLetter(letter){
         const $matchedLetters = $(`.${letter}`);
         $matchedLetters.removeClass("hide").addClass("show");

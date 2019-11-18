@@ -86,6 +86,7 @@ class Game {
         this.restartGame()
     }
 
+    //function to handle the interraction with the virtual keyboad
     handleInteraction(e){
         const target = $(e.target);
         const $letter = target.text();
@@ -103,6 +104,7 @@ class Game {
         }
     }
 
+    // function to begin a new game when finishing one
     restartGame(){
         $("#phrase ul").empty();
         $("#qwerty button").removeClass("chosen wrong");
