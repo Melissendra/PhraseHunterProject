@@ -3,6 +3,7 @@
  * app.js */
 
 const $button = $("#btn__reset");
+const $keyboardBtn = $("#qwerty button");
 let game;
 
 $button.on("click", () =>{
@@ -10,5 +11,8 @@ $button.on("click", () =>{
    game.startGame();
 });
 
+$keyboardBtn.on("click", function(e){
+   game.handleInteraction(e);
+});
 
 

@@ -16,4 +16,18 @@ class Phrase{
             letters === ' ' ?  $list.append("<li class= 'space'> </li>") : $list.append(`<li class = "hide letter ${letters}"> ${letters} </li>`)
         }
     }
+
+    /*
+    * Checks if passed letter is in phrase
+    * @param (string) letter - Letter to check
+    */
+    checkLetter(letter){
+        return this.phrase.match(letter) !== null;
+    }
+
+    showMatchLetter(letter){
+        const $matchedLetters = $(`.${letter}`);
+        $matchedLetters.removeClass("hide").addClass("show");
+
+    }
 }

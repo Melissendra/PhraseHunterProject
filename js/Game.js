@@ -16,9 +16,9 @@ class Game {
     createPhrases(){
         return [
             new Phrase("Carpe Diem"),
-            new Phrase("Treat others like you'd like to be treated"),
+            new Phrase("Treat others like you would like to be treated"),
             new Phrase("We often need a smaller one than ourselves"),
-            new Phrase("The eyes are the soul's mirror"),
+            new Phrase("The eyes are the mirror of the soul"),
             new Phrase("Never say never")
         ];
     }
@@ -41,5 +41,74 @@ class Game {
         const random = this.getRandomPhrase();
         random.addPhraseToDisplay();
         this.activePhrase = random;
+    }
+
+
+    /*
+    * check for winning move
+    * @return {boolean} True if game has bern won, false if the game wasn't won
+    */
+    checkForWin(){
+        const $hiddenLetters = $(".hide");
+        return $hiddenLetters.length === 0;
+    }
+
+    /**
+    * Increases the value of the missed property
+    * Removes a life from the scoreboard
+    * Checks if player has remaining lives and ends game if player is out
+    **/
+    removeLife(){
+        $("img")[this.missed].src = "images/lostHeart.png";
+        this.missed++;
+        if(this.missed === 5){
+            this.gameOver(false);
+        }
+
+    }
+
+    /**
+     * Display Game Over message
+     */
+    gameOver(){
+        const $overlay = $("#overlay");
+        const $endSentence = $("#game-over-message");
+        $overlay.removeClass("start");
+        $overlay.show();
+        if(this.checkForWin()){
+            $endSentence.text ("You win!!!");
+            $overlay.addClass("win");
+
+        }else{
+            $endSentence.text("You Lose! Try again!");
+            $overlay.addClass("lose");
+        }
+        this.restartGame()
+    }
+
+    handleInteraction(e){
+        const target = $(e.target);
+        const $letter = target.text();
+        const $currentPhrase = this.activePhrase;
+        target.prop("disabled", true);
+        if($currentPhrase.checkLetter($letter)){
+            $currentPhrase.showMatchLetter($letter);
+            target.addClass("chosen");
+            if(this.checkForWin()){
+                this.gameOver();
+            }
+        }else{
+            target.addClass("wrong");
+            this.removeLife();
+        }
+    }
+
+    restartGame(){
+        $("#phrase ul").empty();
+        $("#qwerty button").removeClass("chosen wrong");
+        $("#qwerty button").prop("disabled", false);
+        $("img [src='images/lostHeart.png']").each(function(){
+            $("img").src = "images/liveHeart.png"
+        });
     }
 }
