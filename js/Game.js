@@ -104,13 +104,18 @@ class Game {
         }
     }
 
+    restoreLive(){
+        const $life = $("#scoreboard li img");
+        $life.prop("src", "images/liveHeart.png");
+        this.missed = 0;
+    }
+
     // function to begin a new game when finishing one
     restartGame(){
         $("#phrase ul").empty();
-        $("#qwerty button").removeClass("chosen wrong");
-        $("#qwerty button").prop("disabled", false);
-        $("img [src='images/lostHeart.png']").each(function(){
-            $("img").src = "images/liveHeart.png"
-        });
+        const $btn = $("#qwerty button");
+        $btn.removeClass("chosen wrong");
+        $btn.prop("disabled", false);
+        this.restoreLive();
     }
 }
